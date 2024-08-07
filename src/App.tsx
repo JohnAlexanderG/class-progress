@@ -17,7 +17,6 @@ let count = 0;
   '2024/06/25', '2024/06/27', '2024/07/02', '2024/07/04', '2024/07/09', '2024/07/11',
   '2024/07/16', '2024/07/18', '2024/07/23', '2024/07/25', '2024/07/30', '2024/08/01',
   '2024/08/06', '2024/08/08', '2024/08/13', '2024/08/15', '2024/08/20', '2024/08/22',
-  '2024/08/27', '2024/08/29'
 ].forEach((date) => {
   if (new Date(date) < new Date()) {
     count++
@@ -28,7 +27,7 @@ const classDates: ClassDate[] = [
   '04 Junio', '06 Junio', '11 Junio', '13 Junio', '18 Junio', '20 Junio', '25 Junio', '27 Junio',
   '02 Julio', '04 Julio', '09 Julio', '11 Julio', '16 Julio', '18 Julio', '23 Julio', '25 Julio',
   '30 Julio', '01 Agosto', '06 Agosto', '08 Agosto', '13 Agosto', '15 Agosto', '20 Agosto',
-  '22 Agosto', '27 Agosto', '29 Agosto'
+  '22 Agosto'
 ].map((date, index) => ({ date, selected: index < count }));
 
 const App: React.FC = () => {
