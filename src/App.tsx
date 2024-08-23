@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import useWindowSize from "react-use/lib/useWindowSize";
+import Confetti from "react-confetti";
 import './App.css'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -31,6 +33,7 @@ const classDates: ClassDate[] = [
 ].map((date, index) => ({ date, selected: index < count }));
 
 const App: React.FC = () => {
+  const { width, height } = useWindowSize();
   const [dates, setDates] = useState<ClassDate[]>(classDates);
   const [chartData, setChartData] = useState<{
     datasets: { data: number[]; backgroundColor: string[] }[];
@@ -65,39 +68,45 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Progreso</h1>
-      <span className='subtitle'>Curso: Desarrollo de software</span>
-      <div className="chart-container">
-        <Doughnut
-          data={chartData}
-          options={{
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: '70%',
-            plugins: {
-              legend: {
-                position: 'bottom' as const,
+    <>
+      <Confetti
+        width={width}
+        height={height}
+      />
+      <div className="container">
+        <h1>Progreso</h1>
+        <span className='subtitle'>Curso: Desarrollo de software</span>
+        <div className="chart-container">
+          <Doughnut
+            data={chartData}
+            options={{
+              responsive: true,
+              maintainAspectRatio: false,
+              cutout: '70%',
+              plugins: {
+                legend: {
+                  position: 'bottom' as const,
+                },
               },
-            },
-          }}
-        />
-        <div className="percentage-display">
-          <span>{percentage}%</span>
+            }}
+          />
+          <div className="percentage-display">
+            <span>{percentage}%</span>
+          </div>
+        </div>
+        <div className="date-grid">
+          {dates.map((date, index) => (
+            <button
+              key={date.date}
+              onClick={() => toggleDate(index)}
+              className={date.selected ? 'selected' : ''}
+            >
+              {date.date}
+            </button>
+          ))}
         </div>
       </div>
-      <div className="date-grid">
-        {dates.map((date, index) => (
-          <button
-            key={date.date}
-            onClick={() => toggleDate(index)}
-            className={date.selected ? 'selected' : ''}
-          >
-            {date.date}
-          </button>
-        ))}
-      </div>
-    </div>
+    </>
   );
 };
 
